@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Rainfall Prediction</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet"/>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      font-family: 'Inter', sans-serif;
+      background: #5c715e;
+      overflow-y: auto; /* enable vertical scroll */
+    }
+
+    .container {
+      background-color:  #b6cdbd;
+      border-radius: 20px;
+      padding: 30px;
+      margin: 40px auto; /* spacing from top and bottom */
+      width: 95%;
+      max-width: 600px;
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.2);
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 24px;
+      font-size: 26px;
+      color: #2c3e50;
+    }
+
+    form {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .form-group {
+      flex: 0 0 48%;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 6px;
+      font-size: 13px;
+      font-weight: 600;
+      color: #34495e;
+    }
+
+    input {
+      width: 100%;
+      padding: 10px;
+      font-size: 14px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+
+    button {
+      margin-top: 20px;
+      width: 100%;
+      padding: 12px;
+      background: #5c715e;
+      border: none;
+      color: white;
+      font-size: 16px;
+      font-weight: bold;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    button:hover {
+      background: #d1cebd;
+      color: #34495e;
+    }
+
+    .result {
+      margin-top: 20px;
+      text-align: center;
+      font-size: 16px;
+      font-weight: 600;
+      color: #27ae60;
+      background: #ecf9f1;
+      padding: 10px;
+      border-radius: 8px;
+    }
+
+    @media (max-width: 600px) {
+      .form-group {
+        flex: 0 0 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Rainfall Predictor 🌦️</h1>
+    <form method="POST">
+      {% for feature in features %}
+        <div class="form-group">
+          <label>{{ feature.replace("_", " ").title() }}</label>
+          <input type="number" step="any" name="{{ feature }}" required>
+        </div>
+      {% endfor %}
+      <button type="submit">Predict</button>
+    </form>
+
+    {% if result is not none %}
+      <div class="result">
+        Prediction: {{ '🌧 Rain Expected' if result == 1 else '☀ No Rain Expected' }}
+      </div>
+    {% endif %}
+  </div>
+</body>
+</html>
